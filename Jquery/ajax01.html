@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <table id="ajaxTable">
+        
+    </table>
+    <button type="button" id="getme">Get Table</button>
+    <script>
+        $(document).ready(function(){
+            $("#getme").click(function(){
+                $.ajax({
+                    url:"https://jsonplaceholder.typicode.com/users",
+                    method:"GET",
+                    success:function(users){
+                        let temp=`<tr><th>ID</th>
+                                  <th>Name</th>
+                                 <th>Email</th></tr>`;
+
+                        for(user of users)
+                        {
+                             temp+=`<tr><td>${user.id}</td>
+                                    <td>${user.name}</td>
+                                    <td>${user.mail}</td></tr>`;
+                            }
+                        $("#ajaxTable").append(temp);
+        
+                    },
+                    error:function(users){
+                        console.write("error");
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

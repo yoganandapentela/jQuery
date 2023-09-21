@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    form{
+        border-radius: 10px;
+        text-align: center;
+        background-color: bisque;
+
+    }
+#employeeList{
+    border-radius: 5px;
+    border-color: yellow;
+    background-color: lemonchiffon;
+    width: 100%;
+
+
+}
+
+thead {
+  text-align: center;
+  padding: 15px;
+  text-align: left;
+  color:firebrick
+}
+
+
+tbody {
+  text-align: center;
+  padding: 15px;
+  text-align: left;
+}
+
+.error{
+    color:red;
+}
+
+h1{
+    text-align: center;
+    color: chocolate;
+    border: 10px saddlebrown;
+}
+#searchbar{
+  padding:10px;
+  width:300px;
+  border:10 px solid goldenrod;
+  font-size: 16px;
+}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+     <h1>Registration Form</h1>
+    <form onsubmit="event.preventDefault();formsubmit();" autocomplete="off">
+        <div id="form">
+            <label for="name">Name*</label>
+            <input type="text" id="name" name="name" minlength="3" maxlength="50">
+            <span class="error" id="errname"></span><br><br>
+
+
+            <label for="surname">Surname*</label>
+            <input type="text" id="surname" name="surname" minlength="3" maxlength="50">
+            <span class="error" id="errsurname"></span><br><br>
+
+            <label for="email">Email*</label>
+            <input type="email" id="email" name="email">
+            <span class="error" id="erremail"></span><br><br>
+
+            <label for="mobile">Mobile*</label>
+            <input type="text" id="mobile" name="mobile" pattern="[0-9]{10}">
+            <span class="error" id="errmobile"></span><br><br>
+
+            <label for="gender">Gender*</label>
+            <input type="radio" id="male" name="gender" value="male"><label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female"><label for="female">Female</label>
+            <span class="error" id="errgender"></span><br><br>
+
+
+            <label for="date">Date of Birth</label>
+            <input type="date" id="date" name="date" min='1947-07-15' max='2000-12-31'>
+            <span class="error" id="errdate"></span><br><br>
+
+
+            <label for="country">Country</label>
+            <select id="country" onchange="coun()">
+                <option id="" name="" value="">Select Country</option>
+                <option id="usa" name="usa" value="usa">usa</option>
+                <option id="india" name="india" value="india">india</option>
+                <option id="srilanka" name="srilanka" value="srilanka">srilanka</option>
+                <option id="nepal" name="nepal" value="nepal">nepal</option>
+                <option id="australia" name="australia" value="australia">australia</option>
+            </select>
+            <span class="error" id="errcountry"></span>
+            <br><br>
+
+            <label for="state">States</label>
+            <select id="state" onchange="stat()">
+                <option id="" name="" value="">select state</option>
+            </select>
+            <span class="error" id="errstate"></span><br><br>
+            <br><br>
+
+            <label for="district">Districts</label>
+            <select id="district">
+                <option id="" name="" value="">select district</option>
+            </select>
+            <span class="error" id="errdistrict"></span><br><br>
+            <br><br>
+
+            <label text-align:center>::Hobbies::</label><br>
+
+            <label for="cricket">Cricket</label><input type="checkbox" id="cricket" value="crikcet" name="check"><br>
+            <label for="chess">Chess</label><input type="checkbox" id="chess" value="chess" name="check"><br>
+            <label for="hockey">Hockey</label><input type="checkbox" id="hockey" value="hockey" name="check"><br>
+            <label for="kabaddi">Kabaddi</label><input type="checkbox" id="kabaddi" value="kabaddi" name="check"><br>
+            <span class="error" id="errcheckbox"></span>
+            <br><br>
+
+            <!-- <label for="myFile">Upload ur identity</label>
+    <input type="file" id="myFile" name="filename" ><br><br>-->
+
+
+            <label for="yourself">Tell me about yourself</label></p>
+            <textarea id="yourself" name="yourself" rows="4" cols="50"></textarea>
+            <span class="error" id="erryourself"></span><br><br>
+
+
+
+
+            <input type="submit" id="submit">
+            <input type="reset" value="Reset">
+        </div><br><br>
+    </form>
+    <h1>..........DETAILS..........</h1>
+   <input type="text" class="btn btn-outline-primary" id="searchbar" placeholder="Search here.." onkeyup="search()">
+   <br>
+    <table id="employeeList">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Mobile no</th>
+                <th>Gender</th>
+                <th>Country</th>
+                <th>States</th>
+                <th>Districts</th>
+                <th>DOB</th>
+                <th>Hobbies</th>
+                <th>Yourself</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        
+    </table>
+
+    <h1 id="norecords">RECORDS NOT FOUND</h1>
+    <script src="registrationForm.js"></script>
+
+</body>
+
+</html>
