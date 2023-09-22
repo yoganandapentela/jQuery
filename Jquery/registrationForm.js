@@ -5,7 +5,7 @@ function formsubmit() {
     if (validate()) {
         var formdata = fun1();
         if (selectedRow == null) {
-            $("norecords").html("");
+            $("#norecords").html("");
             count++;
             insertnewrecord(formdata);
 
@@ -62,7 +62,7 @@ function insertnewrecord(data)
     $('<td>').html(data.state).appendTo(newRow);
     $('<td>').html(data.district).appendTo(newRow);
     $('<td>').html(data.date).appendTo(newRow);
-    $('<td>').html(data.checkedvalues).appendTo(newRow);
+    $('<td>').html(data.checkedvalues.join(", ")).appendTo(newRow);
     $('<td>').html(data.yourself).appendTo(newRow);
     $('<td>').html(data.age).appendTo(newRow);
 
@@ -102,19 +102,81 @@ genderRadios.each(function () {
 
     selectedRow = null;
 }
-//function for Edit
-function onEdit(td)
-{
+
+
+// Function for Edit
+function onEdit(td) {
+    selectedRow = $(td).closest("tr"); // Get the closest table row (tr) to the clicked button
+
+    $("#name").val(selectedRow.find("td:eq(0)").text());
+    $("#surname").val(selectedRow.find("td:eq(1)").text());
+    $("#email").val(selectedRow.find("td:eq(2)").text());
+    $("#mobile").val(selectedRow.find("td:eq(3)").text());
+
     
-    $("#name").val($(td).parents("tr").attr('name'));
+    var gender = selectedRow.find("td:eq(4)").text();
+    $('input[name="gender"]').filter(function() {
+        return $(this).val() === gender;
+    }).prop("checked", true);
+
+    $("#country").val(selectedRow.find("td:eq(5)").text());
+    coun(); // Populate the state dropdown based on the selected country
+    $("#state").val(selectedRow.find("td:eq(6)").text());
+    stat(); // Populate the district dropdown based on the selected state
+    $("#district").val(selectedRow.find("td:eq(7)").text());
+
+    // set the date in the correct format
+    var dateValue = new Date(selectedRow.find("td:eq(8)").text());
+    var formattedDate = dateValue.getFullYear() + "-" + ("0" + (dateValue.getMonth() + 1)).slice(-2) + "-" + ("0" + dateValue.getDate()).slice(-2);
+    $("#date").val(formattedDate);
+
+
+    var checkedValues = selectedRow.find("td:eq(9)").text().split(", ");
+    $('input[type="checkbox"][name="check"]').prop("checked", false); // Uncheck all checkboxes
+    checkedValues.forEach(function(value) {
+        $('input[type="checkbox"][name="check"][value="' + value + '"]').prop("checked", true);
+    });
+
+    $("#yourself").val(selectedRow.find("td:eq(10)").text());
 }
+
+//function for update
+function updatenewrecord(data) {
+    selectedRow.find("td:eq(0)").html(data.name);
+    selectedRow.find("td:eq(1)").html(data.surname);
+    selectedRow.find("td:eq(2)").html(data.email);
+    selectedRow.find("td:eq(3)").html(data.mobile);
+    selectedRow.find("td:eq(4)").html(data.gender);
+    selectedRow.find("td:eq(5)").html(data.country);
+    selectedRow.find("td:eq(6)").html(data.state);
+    selectedRow.find("td:eq(7)").html(data.district);
+    
+    // set the date in the correct format
+    var dateValue = new Date(data.date);
+    var formattedDate = dateValue.toLocaleString('default', { year: 'numeric', month: 'short', day: 'numeric' });
+    selectedRow.find("td:eq(8)").html(formattedDate);
+
+    selectedRow.find("td:eq(9)").html(data.checkedvalues.join(", "));
+    selectedRow.find("td:eq(10)").html(data.yourself);
+
+
+    const age = calculateAge(data.date);
+    selectedRow.find("td:eq(11)").html(age);
+    
+    
+    selectedRow = null;
+
+   rersetform();
+}
+
+
 
 //function for deletion
 function onDelete(td) {
     
     if (confirm("Are you sure to delete record??")) {
-        //$("td").closest("tr").remove();
-        $("td").parent().parent().remove();
+        $(td).closest("tr").remove();
+    
         count--;
         if (count == 0) {
             $("#norecords").html("NO RECORDS FOUND");
