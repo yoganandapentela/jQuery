@@ -469,34 +469,35 @@ $("#yourself").keyup(function () {
 //function for validation
 function validate() {
     var isValid = true;
-    var errname = document.getElementById("errname");
-    var errsurname = document.getElementById("errsurname");
-    var erremail = document.getElementById("erremail");
-    var errmobile = document.getElementById("errmobile");
-    var errcountry = document.getElementById("errcountry");
-    var errstate = document.getElementById("errstate");
-    var errdistrict = document.getElementById("errdistrict");
-    var errdate = document.getElementById("errdate");
-    var erryourself = document.getElementById("erryourself");
-
-    var nameInput = document.getElementById("name");
-    var surnameInput = document.getElementById("surname");
-    var emailInput = document.getElementById("email");
-    var mobileInput = document.getElementById("mobile");
-    var countryInput = document.getElementById("country");
-    var stateInput = document.getElementById("state");
-    var districtInput = document.getElementById("district");
-    var dateInput = document.getElementById("date");
-    var yourselfInput = document.getElementById("yourself");
 
     function validateField(input, errorElement, err) {
-        if (input.value.trim() === "") {
-            errorElement.innerText = err;
+        if (input.val().trim() === "") {
+            errorElement.text(err);
             isValid = false;
         } else {
-            errorElement.innerText = "";
+            errorElement.text("");
         }
     }
+
+    var nameInput = $("#name");
+    var surnameInput = $("#surname");
+    var emailInput = $("#email");
+    var mobileInput = $("#mobile");
+    var countryInput = $("#country");
+    var stateInput = $("#state");
+    var districtInput = $("#district");
+    var dateInput = $("#date");
+    var yourselfInput = $("#yourself");
+
+    var errname = $("#errname");
+    var errsurname = $("#errsurname");
+    var erremail = $("#erremail");
+    var errmobile = $("#errmobile");
+    var errcountry = $("#errcountry");
+    var errstate = $("#errstate");
+    var errdistrict = $("#errdistrict");
+    var errdate = $("#errdate");
+    var erryourself = $("#erryourself");
 
     validateField(nameInput, errname, "The name field is Required");
     validateField(surnameInput, errsurname, "The surname is required");
@@ -508,45 +509,39 @@ function validate() {
     validateField(dateInput, errdate, "Please select the Date");
     validateField(yourselfInput, erryourself, " Please Tell me about Yourself");
 
-    //
-
-    //
-    var genderInputs = document.querySelectorAll('input[name="gender"]');
-    var errgender = document.getElementById("errgender");
+    var genderInputs = $('input[name="gender"]');
+    var errgender = $("#errgender");
     var selectedGender = false;
 
-    genderInputs.forEach(function (radio) {
-        if (radio.checked) {
+    genderInputs.each(function () {
+        if ($(this).is(":checked")) {
             selectedGender = true;
         }
     });
 
     if (!selectedGender) {
-        errgender.innerText = "Please select a gender";
-        isValid = false; // Mark the form as invalid
+        errgender.text("Please select a gender");
+        isValid = false;
     } else {
-        errgender.innerText = "";
+        errgender.text("");
     }
 
-    var checkboxes = document.querySelectorAll('input[type="checkbox"][name="check"]');
-    var errcheckbox = document.getElementById("errcheckbox");
+    var checkboxes = $('input[type="checkbox"][name="check"]');
+    var errcheckbox = $("#errcheckbox");
     var selectedCheckboxes = false;
 
-    checkboxes.forEach(function (checkbox) {
-        if (checkbox.checked) {
+    checkboxes.each(function () {
+        if ($(this).is(":checked")) {
             selectedCheckboxes = true;
         }
     });
 
     if (!selectedCheckboxes) {
-        errcheckbox.innerText = "Please select at least one hobby";
-        isValid = false; // Mark the form as invalid
+        errcheckbox.text("Please select at least one hobby");
+        isValid = false;
     } else {
-        errcheckbox.innerText = "";
+        errcheckbox.text("");
     }
-
-
 
     return isValid;
 }
-
